@@ -1,5 +1,6 @@
 using System;
 using CanonicalEquation.Exceptions;
+using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
 
