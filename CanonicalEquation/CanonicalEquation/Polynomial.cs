@@ -143,6 +143,10 @@ namespace CanonicalEquation
         }
     }
 
+
+    /// <summary>
+    /// Part of polynomial. 
+    /// </summary>
     public class Monomial
     {
         private readonly string _initialMonomialString;
@@ -156,26 +160,5 @@ namespace CanonicalEquation
         {
             return _initialMonomialString;
         }
-    }
-
-    public abstract class MonomialItem
-    {
-
-    }
-
-    public class Summand : MonomialItem
-    {
-        public double Multiplier { get; set; }
-    }
-
-    public class Brackets : MonomialItem
-    {
-
-    }
-
-    public class Variable
-    {
-        public char Name { get; set; }
-        public int Power { get; set; }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CanonicalEquation.Exceptions
 {
@@ -17,22 +15,6 @@ namespace CanonicalEquation.Exceptions
         public NotValidEquationArgumentException(string message, string paramName) : base(message, paramName)
         {
             
-        }
-    }
-
-    public class NotValidPolynomialArgumentException : ArgumentException
-    {
-        public NotValidPolynomialArgumentException()
-        {
-
-        }
-        public NotValidPolynomialArgumentException(string message) : base(message)
-        {
-
-        }
-        public NotValidPolynomialArgumentException(string message, string paramName) : base(message, paramName)
-        {
-
         }
     }
 }

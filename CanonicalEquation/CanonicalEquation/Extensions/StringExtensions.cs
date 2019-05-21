@@ -8,5 +8,12 @@ namespace CanonicalEquation.Extensions
         {
             return String.IsNullOrWhiteSpace(value);
         }
+
+        public static string RemoveWhiteSpaces(this string value)
+        {
+            if (value == null) return null;
+
+            return value.Trim(SymbolsConsts.Space);
+        }
     }
 }
