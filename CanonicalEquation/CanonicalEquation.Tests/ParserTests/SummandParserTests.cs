@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
-using Xunit.Extensions;
 
-namespace CanonicalEquation.Tests
+namespace CanonicalEquation.Tests.ParserTests
 {
     public class SummandParserTests
     {
@@ -81,9 +80,14 @@ namespace CanonicalEquation.Tests
             parseResult.Multiplier.ShouldBe(multiplier);
             parseResult.Variables.Count.ShouldBe(countVariables);
 
-            foreach (var variable in parseResult.Variables)
+            var sortedActualResult = parseResult.Variables.OrderBy(x => x.Name).ThenBy(x => x.Power).ToArray();
+            var sortedExpectedResult = expectedVariables.OrderBy(x => x.Name).ThenBy(x => x.Power).ToArray();
+
+            for (int i = 0; i < sortedActualResult.Length; i++)
             {
-                expectedVariables.ShouldContain(x => x.Name == variable.Name && x.Power == variable.Power);
+                var expectedValue = sortedExpectedResult[i];
+                sortedActualResult[i].Name.ShouldBe(expectedValue.Name);
+                sortedActualResult[i].Power.ShouldBe(expectedValue.Power);
             }
         }
     }

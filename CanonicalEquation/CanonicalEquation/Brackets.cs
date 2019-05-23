@@ -1,4 +1,9 @@
-﻿namespace CanonicalEquation
+﻿using System;
+using CanonicalEquation.Extensions;
+using CanonicalEquation.Helpers;
+using CanonicalEquation.Parsers;
+
+namespace CanonicalEquation
 {
     /// <summary>
     /// Brackets as a part of monomial. May contain a polynomial (of one or several monomials)
@@ -16,5 +21,28 @@
             
         }
 
+        public override string ToString()
+        {
+            return $"({Polynomial})";
+        }
     }
+
+    public static class BracketsParser
+    {
+        public static Brackets Parse(string bracketsString)
+        {
+            if(bracketsString.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(bracketsString));
+
+            ParseHelper.ValidateBrackets(bracketsString);
+
+            //Get sign ??
+            
+            var contentInsideBrackets = ParseHelper.GetContentForBrackets(bracketsString);
+
+            var polynomial = PolynomialParser.Parse(contentInsideBrackets);
+
+            return new Brackets(polynomial);
+        }
+    }
+
 }

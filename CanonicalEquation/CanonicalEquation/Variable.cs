@@ -1,4 +1,5 @@
-﻿using CanonicalEquation.Exceptions;
+﻿using System;
+using CanonicalEquation.Exceptions;
 using CanonicalEquation.Parsers;
 
 namespace CanonicalEquation
@@ -16,14 +17,14 @@ namespace CanonicalEquation
         /// Name of variable
         ///     For 'x^3' name is 'x'
         /// </summary>
-        public char Name { get; set; }
+        public char Name { get; }
 
         /// <summary>
         /// Power of variable
         ///     default: 1 (for example 'x')
         ///     For 'x^3' power is '3'
         /// </summary>
-        public int Power { get; set; }
+        public int Power { get; }
 
         public Variable(char name, int power = 1)
         {

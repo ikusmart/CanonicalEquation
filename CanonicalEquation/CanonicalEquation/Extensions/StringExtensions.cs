@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace CanonicalEquation.Extensions
 {
@@ -11,9 +12,14 @@ namespace CanonicalEquation.Extensions
 
         public static string RemoveWhiteSpaces(this string value)
         {
-            if (value == null) return null;
+            return value?.Replace(SymbolsConsts.Space.ToString(), String.Empty);
+        }
 
-            return value.Trim(SymbolsConsts.Space);
+        public static string RemoveSymbols(this string value, params char[] symbols)
+        {
+            if (symbols == null) return value;
+
+            return symbols.Aggregate(value, (current, symbol) => current.Replace(symbol.ToString(), String.Empty));
         }
     }
 }

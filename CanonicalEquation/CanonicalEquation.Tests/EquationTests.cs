@@ -51,7 +51,7 @@ namespace CanonicalEquation.Tests
         [Theory]
         [InlineData("x^2=x", "x^2", "x")]
         [InlineData("x=y", "x", "y")]
-        [InlineData("x^2+ 83 + zxy = 4 - sd+2", "x^2+ 83 + zxy ", " 4 - sd+2")]
+        [InlineData("x^2+ 83 + zxy = 4 - sd+2", "x^2+83+zxy", "4-sd+2")]
         public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
             string equationString, string leftPolynomial, string rightPolynomial)
         {
@@ -59,36 +59,6 @@ namespace CanonicalEquation.Tests
 
             equation.Left.ToString().ShouldBe(leftPolynomial);
             equation.Right.ToString().ShouldBe(rightPolynomial);
-        }
-    }
-
-    public class PolynomialTests
-    {
-        [Fact]
-        public void ParseMethod_NullString_ThrowNullArgumentException()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-            {
-                var parseResult = Polynomial.Parse(null);
-            });
-        }
-
-        [Fact]
-        public void ParseMethod_EmptyString_ThrowNullArgumentException()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-            {
-                var parseResult = Polynomial.Parse("");
-            });
-        }
-
-        [Fact]
-        public void ParseMethod_OnlyWhiteSpaceString_ThrowNullArgumentException()
-        {
-            Should.Throw<ArgumentNullException>(() =>
-            {
-                var parseResult = Polynomial.Parse("   ");
-            });
         }
     }
 }

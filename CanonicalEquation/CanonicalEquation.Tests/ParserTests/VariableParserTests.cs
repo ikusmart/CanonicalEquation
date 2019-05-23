@@ -4,7 +4,7 @@ using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
 
-namespace CanonicalEquation.Tests
+namespace CanonicalEquation.Tests.ParserTests
 {
     public class VariableParserTests
     {
