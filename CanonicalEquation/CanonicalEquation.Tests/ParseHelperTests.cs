@@ -69,6 +69,10 @@ namespace CanonicalEquation.Tests
                 new object[] { "x^2y^2(x+2)",  new[]{ "x^2y^2"}, new[]{ "(x+2)" } },
                 new object[] { "- (a- b)",  new[]{ "-1" }, new[] { "(a-b)" } },
                 new object[] { "-x (a- b) y (b-   c^ 2b) z (( -a))",  new[]{ "-x", "y", "z" }, new[] { "(a-b)", "(b-c^2b)", "((-a))" } },
+                new object[] { "+10",  new[]{ "+10" }, new string[] { }},
+                new object[] { "abc",  new[]{ "abc" }, new string[] { }},
+                new object[] { "-",  new[]{ "-1" }, new string[] { }},
+
             };
 
         [Theory, MemberData(nameof(ValidMonomialStringWithExpectedMonomialParts))]

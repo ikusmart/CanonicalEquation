@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CanonicalEquation.Extensions;
+using CanonicalEquation.Helpers;
 
 namespace CanonicalEquation.Parsers
 {
@@ -16,9 +19,12 @@ namespace CanonicalEquation.Parsers
         {
             if(monomialString.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(monomialString));
 
+            ParseHelper.GetMonomialItemsFromMonomialString(monomialString, out var summandPartsList, out var bracketsPartsList);
 
-            
-            return new Monomial(monomialString);
+            var summands = summandPartsList?.Any() == true ? new List<Summand>(new[] { summandPartsList.Select(SummandParser.Parse).Multiply() }) : new List<Summand>();
+            var brackets = bracketsPartsList?.Any() == true ? bracketsPartsList.Select(BracketsParser.Parse).ToList() : new List<Brackets>();
+
+            return new Monomial(summands.OfType<MonomialItem>().Union(brackets));
         }
 
         

@@ -37,6 +37,8 @@ namespace CanonicalEquation.Parsers
 
             var multiplier = float.Parse(multiplierString);
 
+            if (Math.Abs(multiplier) < float.Epsilon) return new Summand(0);
+
             var variables = new List<Variable>();
             foreach (Capture capture in regexGroupResult[VariblesRegexGroupName].Captures)
             {

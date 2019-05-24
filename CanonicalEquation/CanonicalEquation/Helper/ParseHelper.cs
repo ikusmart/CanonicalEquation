@@ -60,8 +60,8 @@ namespace CanonicalEquation.Helpers
 
         private static string AppentNumberOneForSign(string str)
         {
-            if (str.Length == 1 &&
-                str[0] == SymbolsConsts.Minus || str[0] == SymbolsConsts.Plus)
+            if (str.Length == 1 && 
+                (str[0] == SymbolsConsts.Minus || str[0] == SymbolsConsts.Plus))
             {
                 str += "1";
             }
@@ -101,8 +101,9 @@ namespace CanonicalEquation.Helpers
                         monomialUtemString = monomialItemStringBuilder.ToString().RemoveWhiteSpaces();
                         if(!monomialUtemString.IsNullOrWhiteSpace()) result.Add(monomialUtemString);
                         monomialItemStringBuilder.Clear();
-                        monomialItemStringBuilder.Append(currentSymbol);
                     }
+                    monomialItemStringBuilder.Append(currentSymbol);
+
                 }
                 else
                 {
@@ -141,19 +142,18 @@ namespace CanonicalEquation.Helpers
             if (calculateBracketsResult > 0) throw new NotValidBracketArgumentException($"Initial string contains {calculateBracketsResult} brackets '(' without pair ')'");
         }
 
+        public static bool IsBrackets(string bracketsStr)
+            => !bracketsStr.IsNullOrWhiteSpace()
+               && bracketsStr.Length > 1
+               && bracketsStr[0] == SymbolsConsts.OpenBracket
+               && bracketsStr[bracketsStr.Length - 1] == SymbolsConsts.CloseBracket;
+
         public static string GetContentForBrackets(string bracketsString)
         {
-            if (bracketsString.IsNullOrWhiteSpace()) return bracketsString;
+            if (!IsBrackets(bracketsString)) return bracketsString;
 
             var stringLength = bracketsString.Length;
-
-            if (bracketsString[0] == SymbolsConsts.OpenBracket &&
-                bracketsString[stringLength - 1] == SymbolsConsts.CloseBracket)
-            {
-                return stringLength > 2 ? bracketsString.Substring(1, stringLength - 2) : String.Empty;
-            }
-
-            return bracketsString;
+            return stringLength > 2 ? bracketsString.Substring(1, stringLength - 2) : String.Empty;
         }
 
         public static int FindClosingBracket(string stringValue, int start)

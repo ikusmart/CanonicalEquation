@@ -1,7 +1,5 @@
 ﻿using System;
-using CanonicalEquation.Extensions;
-using CanonicalEquation.Helpers;
-using CanonicalEquation.Parsers;
+using System.Collections.Generic;
 
 namespace CanonicalEquation
 {
@@ -16,33 +14,15 @@ namespace CanonicalEquation
     {
         public Polynomial Polynomial { get; set; }
 
-        public Brackets(Polynomial polynomial, float multiplier = 1) : base(multiplier)
+        public Brackets(Polynomial polynomialInsideBrackets, float multiplier = 1) : base(multiplier)
         {
-            
+            Polynomial = polynomialInsideBrackets ?? throw new ArgumentNullException(nameof(polynomialInsideBrackets));
         }
 
+        
         public override string ToString()
         {
             return $"({Polynomial})";
         }
     }
-
-    public static class BracketsParser
-    {
-        public static Brackets Parse(string bracketsString)
-        {
-            if(bracketsString.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(bracketsString));
-
-            ParseHelper.ValidateBrackets(bracketsString);
-
-            //Get sign ??
-            
-            var contentInsideBrackets = ParseHelper.GetContentForBrackets(bracketsString);
-
-            var polynomial = PolynomialParser.Parse(contentInsideBrackets);
-
-            return new Brackets(polynomial);
-        }
-    }
-
 }

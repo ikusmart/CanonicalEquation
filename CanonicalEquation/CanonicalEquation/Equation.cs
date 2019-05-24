@@ -7,8 +7,8 @@ namespace CanonicalEquation
 {
     public class Equation
     {
-        public Polynomial Left { get; set; }
-        public Polynomial Right { get; set; }
+        public Polynomial Left { get; }
+        public Polynomial Right { get; }
 
         public Equation(Polynomial left, Polynomial right, string stringEquation)
         {
@@ -20,8 +20,9 @@ namespace CanonicalEquation
         {
             if (equationString.IsNullOrWhiteSpace())
                 throw new ArgumentNullException(nameof(equationString), "String shouldn't be empty");
+            var transformedEquationString = equationString.RemoveWhiteSpaces();
 
-            var equationExpressionsStringParts = equationString.Split(new []{ '=' }, StringSplitOptions.RemoveEmptyEntries);
+            var equationExpressionsStringParts = transformedEquationString.Split(new []{ '=' }, StringSplitOptions.RemoveEmptyEntries);
             if(equationExpressionsStringParts.Length == 0)
                 throw new NotValidEquationArgumentException("Symbol '=' not found in source string");
             if(equationExpressionsStringParts.Length == 1)
@@ -29,7 +30,6 @@ namespace CanonicalEquation
             if (equationExpressionsStringParts.Length > 2)
                 throw new NotValidEquationArgumentException("There must be only one  symbol '=' in the equation");
 
-            var transformedEquationString = equationString.RemoveWhiteSpaces();
 
             //var trimmedStringEquation = TrimUnSupportedSymbols()
 
@@ -40,6 +40,11 @@ namespace CanonicalEquation
             var right = PolynomialParser.Parse(rightPart);
 
             return new Equation(left, right, equationString);
+        }
+
+        public override string ToString()
+        {
+            return $"{Left}={Right}";
         }
     }
 }
