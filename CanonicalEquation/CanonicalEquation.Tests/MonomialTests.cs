@@ -18,6 +18,7 @@ namespace CanonicalEquation.Tests
                 new object[] { "-x (a- b) y (b-   c^ 2b) z (( -a))", "+xyz(a-b)(b-c^2b)((-a))"  },
                 new object[] { "+10", "-10" },
                 new object[] { "abc", "-abc" },
+                new object[] { "ab(a+b+)", "-ab(a+b)" },
                 new object[] { "-", "+1" },
                 new object[] { "0", "0" },
 

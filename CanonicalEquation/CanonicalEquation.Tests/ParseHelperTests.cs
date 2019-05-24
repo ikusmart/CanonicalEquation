@@ -44,6 +44,7 @@ namespace CanonicalEquation.Tests
                 new object[] { "x^2y^2- yx",  new[]{ "x^2y^2", "-yx" } },
                 new object[] { " + x^2yz- x(y- z ^2)",  new[]{ "+x^2yz", "-x(y-z^2)" } },
                 new object[] { "x + 2 - ((a))",  new[]{ "x", "+2", "-((a))" } },
+                new object[] { "a + b -",  new[]{ "a", "b"} },
             };
 
         [Theory, MemberData(nameof(ValidPolynomialStringWithExpectedMonomialParts))]
