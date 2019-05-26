@@ -51,8 +51,8 @@ namespace CanonicalEquation.Tests
         [Theory]
         [InlineData("x^2=x", "x^2", "x")]
         [InlineData("x=y", "x", "y")]
-        [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+83+xyz", "4-ds+2")]
-        [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+x(a+b)-x", "(ab-cd)(ab-1)-1")]
+        [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+83+xyz", "6-ds")]
+        [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+ax+bx-x", "a^2b^2-ab-abcd+cd-1")]
         public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
             string equationString, string leftPolynomial, string rightPolynomial)
         {

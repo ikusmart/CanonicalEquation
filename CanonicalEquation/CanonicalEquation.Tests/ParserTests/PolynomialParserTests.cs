@@ -1,4 +1,5 @@
 using System;
+using CanonicalEquation.Exceptions;
 using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
@@ -19,7 +20,7 @@ namespace CanonicalEquation.Tests.ParserTests
         [Fact]
         public void ParseMethod_EmptyString_ThrowNullArgumentException()
         {
-            Should.Throw<ArgumentNullException>(() =>
+            Should.Throw<NotValidPolynomialArgumentException>(() =>
             {
                 var parseResult = PolynomialParser.Parse("");
             });
@@ -28,7 +29,7 @@ namespace CanonicalEquation.Tests.ParserTests
         [Fact]
         public void ParseMethod_OnlyWhiteSpaceString_ThrowNullArgumentException()
         {
-            Should.Throw<ArgumentNullException>(() =>
+            Should.Throw<NotValidPolynomialArgumentException>(() =>
             {
                 var parseResult = PolynomialParser.Parse("   ");
             });

@@ -1,6 +1,6 @@
 ﻿namespace CanonicalEquation
 {
-    public class SymbolsConsts
+    public class Symbols
     {
         public const char Equality = '=';
         public const char Minus = '-';

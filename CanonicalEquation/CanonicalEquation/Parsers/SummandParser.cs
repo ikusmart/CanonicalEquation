@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
 
 namespace CanonicalEquation.Parsers
@@ -31,8 +32,8 @@ namespace CanonicalEquation.Parsers
                 multiplierString = regexGroupResult[MultiplierRegexGroupName].Captures[0].Value;
             }
 
-            if (multiplierString.Equals(String.Empty) || multiplierString.Equals(SymbolsConsts.Minus.ToString()) ||
-                multiplierString.Equals(SymbolsConsts.Plus.ToString()))
+            if (multiplierString.Equals(String.Empty) || multiplierString.Equals(Symbols.Minus.ToString()) ||
+                multiplierString.Equals(Symbols.Plus.ToString()))
                 multiplierString += "1";
 
             var multiplier = float.Parse(multiplierString);

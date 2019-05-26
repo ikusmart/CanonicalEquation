@@ -13,9 +13,14 @@ namespace CanonicalEquation.Extensions
             return String.IsNullOrWhiteSpace(value);
         }
 
+        public static bool IsNullOrEmpty(this string value)
+        {
+            return String.IsNullOrEmpty(value);
+        }
+
         public static string RemoveWhiteSpaces(this string value)
         {
-            return value?.Replace(SymbolsConsts.Space.ToString(), String.Empty);
+            return value?.Replace(Symbols.Space.ToString(), String.Empty);
         }
 
         public static string RemoveSymbols(this string value, params char[] symbols)

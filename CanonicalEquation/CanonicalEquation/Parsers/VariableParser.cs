@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
 
 namespace CanonicalEquation.Parsers
@@ -11,7 +12,7 @@ namespace CanonicalEquation.Parsers
             int power = 1;
 
             if(variableString.IsNullOrWhiteSpace()) throw new ArgumentNullException(nameof(variableString));
-            var partsOfVariable = variableString.Split(new[] {SymbolsConsts.Power});
+            var partsOfVariable = variableString.Split(new[] {Symbols.Power});
 
             if (partsOfVariable.Length > 2) throw new FormatException("Variable string must contains only one symbol of power '^'");;
 

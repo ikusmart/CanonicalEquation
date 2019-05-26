@@ -1,4 +1,5 @@
 ﻿using System;
+using CanonicalEquation.Entities;
 using CanonicalEquation.Exceptions;
 using CanonicalEquation.Extensions;
 using CanonicalEquation.Parsers;

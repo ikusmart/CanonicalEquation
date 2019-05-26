@@ -44,13 +44,13 @@ namespace CanonicalEquation.Tests
                 new object[] { "x^2y^2- yx",  new[]{ "x^2y^2", "-yx" } },
                 new object[] { " + x^2yz- x(y- z ^2)",  new[]{ "+x^2yz", "-x(y-z^2)" } },
                 new object[] { "x + 2 - ((a))",  new[]{ "x", "+2", "-((a))" } },
-                new object[] { "a + b -",  new[]{ "a", "b"} },
+                new object[] { "a + b -",  new[]{ "a", "+b"} },
             };
 
         [Theory, MemberData(nameof(ValidPolynomialStringWithExpectedMonomialParts))]
         public void GetMonomialParts_ValidPolynomialInputString_ReturnValidParts(string inputString, string[] expectedOutputStrings)
         {
-            var monomialParts = ParseHelper.GetMonomialsPartsForPolynomialString(inputString).ToList();
+            var monomialParts = ParseHelper.GetMonomialssForPolynomial(inputString).ToList();
 
             monomialParts.ShouldNotBeNull();
             monomialParts.Count().ShouldBe(expectedOutputStrings.Length);
@@ -67,9 +67,9 @@ namespace CanonicalEquation.Tests
             new[]
             {
                 new object[] { "x^2y^2",  new[]{ "x^2y^2" }, new string[] { }},
-                new object[] { "x^2y^2(x+2)",  new[]{ "x^2y^2"}, new[]{ "(x+2)" } },
-                new object[] { "- (a- b)",  new[]{ "-1" }, new[] { "(a-b)" } },
-                new object[] { "-x (a- b) y (b-   c^ 2b) z (( -a))",  new[]{ "-x", "y", "z" }, new[] { "(a-b)", "(b-c^2b)", "((-a))" } },
+                new object[] { "x^2y^2(x+2)",  new[]{ "x^2y^2"}, new[]{ "x+2" } },
+                new object[] { "- (a- b)",  new[]{ "-1" }, new[] { "a-b" } },
+                new object[] { "-x (a- b) y (b-   c^ 2b) z (( -a))",  new[]{ "-x", "y", "z" }, new[] { "a-b", "b-c^2b", "(-a)" } },
                 new object[] { "+10",  new[]{ "+10" }, new string[] { }},
                 new object[] { "abc",  new[]{ "abc" }, new string[] { }},
                 new object[] { "-",  new[]{ "-1" }, new string[] { }},
@@ -79,16 +79,16 @@ namespace CanonicalEquation.Tests
         [Theory, MemberData(nameof(ValidMonomialStringWithExpectedMonomialParts))]
         public void GetMonomialParts_ValidMonomialInputString_ReturnValidParts(string inputString, string[] expectedSummandsStrings, string[] expectedBracketsStrings)
         {
-            ParseHelper.GetMonomialItemsFromMonomialString(inputString, out IList<string> summandList, out IList<string> bracketsList);
+            var result = ParseHelper.GetSummandsForMonomial(inputString);
 
-            summandList.ShouldNotBeNull();
-            bracketsList.ShouldNotBeNull();
+            result.summandItems.ShouldNotBeNull();
+            result.bracketsParts.ShouldNotBeNull();
 
-            summandList.Count().ShouldBe(expectedSummandsStrings.Length);
-            bracketsList.Count().ShouldBe(expectedBracketsStrings.Length);
+            result.summandItems.Count().ShouldBe(expectedSummandsStrings.Length);
+            result.bracketsParts.Count().ShouldBe(expectedBracketsStrings.Length);
 
 
-            var sortedActualSummandResult = summandList.OrderBy(x => x).ToArray();
+            var sortedActualSummandResult = result.summandItems.OrderBy(x => x).ToArray();
             var sortedExpectedSummandOutputStrings = expectedSummandsStrings.OrderBy(x => x).ToArray();
 
             for (int i = 0; i < sortedExpectedSummandOutputStrings.Length; i++)
@@ -96,8 +96,8 @@ namespace CanonicalEquation.Tests
                 sortedActualSummandResult[i].ShouldBe(sortedExpectedSummandOutputStrings[i], $"Expected summand item {sortedExpectedSummandOutputStrings[i]} not equals actual {sortedActualSummandResult[i]}");
             }
 
-            var sortedActualBracketsResult = summandList.OrderBy(x => x).ToArray();
-            var sortedExpectedBracketsOutputStrings = expectedSummandsStrings.OrderBy(x => x).ToArray();
+            var sortedActualBracketsResult = result.bracketsParts.OrderBy(x => x).ToArray();
+            var sortedExpectedBracketsOutputStrings = expectedBracketsStrings.OrderBy(x => x).ToArray();
 
             for (int i = 0; i < sortedExpectedBracketsOutputStrings.Length; i++)
             {

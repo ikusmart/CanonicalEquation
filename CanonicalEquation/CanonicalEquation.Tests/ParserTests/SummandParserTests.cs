@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CanonicalEquation.Entities;
 using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
@@ -73,12 +74,12 @@ namespace CanonicalEquation.Tests.ParserTests
 
             Should.NotThrow(() =>
             {
-                 parseResult = SummandParser.Parse(variableString);
+                parseResult = SummandParser.Parse(variableString);
             });
 
             parseResult.ShouldNotBeNull();
             parseResult.Multiplier.ShouldBe(multiplier);
-            parseResult.Variables.Count.ShouldBe(countVariables);
+            parseResult.Variables.Count().ShouldBe(countVariables);
 
             var sortedActualResult = parseResult.Variables.OrderBy(x => x.Name).ThenBy(x => x.Power).ToArray();
             var sortedExpectedResult = expectedVariables.OrderBy(x => x.Name).ThenBy(x => x.Power).ToArray();

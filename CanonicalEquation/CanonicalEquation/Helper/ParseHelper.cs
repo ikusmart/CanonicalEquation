@@ -8,16 +8,81 @@ namespace CanonicalEquation.Helpers
 {
     public static class ParseHelper
     {
+        public static IEnumerable<string> GetMonomialssForPolynomial(string polynomialString)
+        {
+            var result = new List<string>();
+            var summandStringBuilder = new StringBuilder(polynomialString.Length);
+            polynomialString = polynomialString.RemoveWhiteSpaces();
+            // + or - -> new monomial
+            // ' ' ignore
+            // '(' - initial search of closing brackets '('
+            // '.*^', letters or numbers - part of monomial
+
+            string summandItemString;
+            for (int i = 0; i < polynomialString.Length; i++)
+            {
+                var currentSymbol = polynomialString[i];
+                if (currentSymbol == '(')
+                {
+                    var j = FindClosingBracket(polynomialString, i);
+                    if(j == -1) throw new FormatException($"For bracket '(' missing its counterpart ')'.");
+
+                    for (int k = i; k < j + 1; k++)
+                    {
+                        summandStringBuilder.Append(polynomialString[k]);
+                    }
+                    i = j;
+                }
+
+                else if (currentSymbol == Symbols.Plus || currentSymbol == Symbols.Minus )
+                {
+                    if (summandStringBuilder.Length > 0)
+                    {
+                        summandItemString = summandStringBuilder.ToString();
+                        if (!summandItemString.IsNullOrWhiteSpace())
+                        {
+                            if (!summandItemString.Equals(Symbols.Minus.ToString()) && !summandItemString.Equals(Symbols.Plus.ToString()))
+                            {
+                                result.Add(summandItemString); 
+                            }
+                        }
+                        summandStringBuilder.Clear();
+                    }
+                    summandStringBuilder.Append(currentSymbol);
+                }
+                else
+                {
+                    summandStringBuilder.Append(currentSymbol);
+                }
+            }
+
+            if (summandStringBuilder.Length > 0)
+            {
+                summandItemString = summandStringBuilder.ToString();
+                if (!summandItemString.IsNullOrWhiteSpace())
+                {
+                    if (!summandItemString.Equals(Symbols.Minus.ToString()) && !summandItemString.Equals(Symbols.Plus.ToString()))
+                    {
+                        result.Add(summandItemString);
+                    }
+                }
+                summandStringBuilder.Clear();
+            }
+
+            return result;
+        }
+
         /// <summary>
-        /// Consists of a collection of expressions in brackets (if there are in the string) and a list of summands (contained between brackets, if any).
+        /// Consists of a collects of expressions in brackets (if there are in the string) and a list of summands (contained between brackets, if any).
         /// If there are no brackets, then the monomial consists of one summand)
         /// </summary>
         /// <param name="monomialString">initial monomial string</param>
         /// <returns>List of monomial item: brackets or summands</returns>
-        public static void GetMonomialItemsFromMonomialString(string monomialString, out IList<string> summandList, out IList<string> bracketsList)
+        public static (IList<string> summandItems, IList<string> bracketsParts) GetSummandsForMonomial(
+            string monomialString)
         {
-            summandList = new List<string>();
-            bracketsList = new List<string>();
+            var summandList = new List<string>();
+            var bracketsList = new List<string>();
 
             var transformedMonomial = monomialString.RemoveWhiteSpaces();
             var monomialItemsStringBuilder = new StringBuilder(transformedMonomial.Length);
@@ -37,11 +102,15 @@ namespace CanonicalEquation.Helpers
                     }
 
                     var j = FindClosingBracket(transformedMonomial, i);
-                    for (int k = i; k < j + 1; k++)
+                    if (j != (i+1)  )
                     {
-                        monomialItemsStringBuilder.Append(transformedMonomial[k]);
+                        for (int k = i + 1; k < j; k++)
+                        {
+                            monomialItemsStringBuilder.Append(transformedMonomial[k]);
+                        }
+                        bracketsList.Add(monomialItemsStringBuilder.ToString());
                     }
-                    bracketsList.Add(monomialItemsStringBuilder.ToString());
+                    
                     monomialItemsStringBuilder.Clear();
                     i = j;
                 }
@@ -56,12 +125,41 @@ namespace CanonicalEquation.Helpers
                 var currentSummand = AppentNumberOneForSign(monomialItemsStringBuilder.ToString());
                 summandList.Add(currentSummand);
             }
+
+            return (summandList, bracketsList);
+        }
+
+        public static int FindClosingBracket(string stringValue, int start)
+        {
+            var bracketsStack = new Stack<int>();
+            int i = start;
+
+            do
+            {
+                if (stringValue[i] == '(')
+                {
+                    bracketsStack.Push(i);
+                }
+                else if (stringValue[i] == ')')
+                {
+                    bracketsStack.Pop();
+                }
+
+                i++;
+            } while (bracketsStack.Count > 0 && i < stringValue.Length);
+
+            if (bracketsStack.Count == 0)
+            {
+                return i - 1;
+            }
+
+            return -1;
         }
 
         private static string AppentNumberOneForSign(string str)
         {
-            if (str.Length == 1 && 
-                (str[0] == SymbolsConsts.Minus || str[0] == SymbolsConsts.Plus))
+            if (str.Length == 1 &&
+                (str[0] == Symbols.Minus || str[0] == Symbols.Plus))
             {
                 str += "1";
             }
@@ -69,53 +167,6 @@ namespace CanonicalEquation.Helpers
             return str;
         }
 
-        public static IEnumerable<string> GetMonomialsPartsForPolynomialString(string polynomialString)
-        {
-            var result = new List<string>();
-            var monomialItemStringBuilder = new StringBuilder(polynomialString.Length);
-
-            // + or - -> new monomial
-            // ' ' ignore
-            // '(' - initial search of closing brackets '('
-            // '.*^', letters or numbers - part of monomial
-
-            string monomialUtemString;
-            for (int i = 0; i < polynomialString.Length; i++)
-            {
-                var currentSymbol = polynomialString[i];
-                if (currentSymbol == '(')
-                {
-                    var j = FindClosingBracket(polynomialString, i);
-                    for (int k = i; k < j + 1; k++)
-                    {
-                        monomialItemStringBuilder.Append(polynomialString[k]);
-                    }
-
-                    i = j;
-                }
-                
-                else if (currentSymbol == SymbolsConsts.Plus || currentSymbol == SymbolsConsts.Minus)
-                {
-                    if (monomialItemStringBuilder.Length > 0)
-                    {
-                        monomialUtemString = monomialItemStringBuilder.ToString().RemoveWhiteSpaces();
-                        if(!monomialUtemString.IsNullOrWhiteSpace()) result.Add(monomialUtemString);
-                        monomialItemStringBuilder.Clear();
-                    }
-                    monomialItemStringBuilder.Append(currentSymbol);
-
-                }
-                else
-                {
-                    monomialItemStringBuilder.Append(currentSymbol);
-                }
-            }
-
-            monomialUtemString = monomialItemStringBuilder.ToString().RemoveWhiteSpaces();
-            if (!monomialUtemString.IsNullOrWhiteSpace()) result.Add(monomialUtemString);
-
-            return result;
-        }
 
         public static int CalculateBrackets(string value)
         {
@@ -145,8 +196,8 @@ namespace CanonicalEquation.Helpers
         public static bool IsBrackets(string bracketsStr)
             => !bracketsStr.IsNullOrWhiteSpace()
                && bracketsStr.Length > 1
-               && bracketsStr[0] == SymbolsConsts.OpenBracket
-               && bracketsStr[bracketsStr.Length - 1] == SymbolsConsts.CloseBracket;
+               && bracketsStr[0] == Symbols.OpenBracket
+               && bracketsStr[bracketsStr.Length - 1] == Symbols.CloseBracket;
 
         public static string GetContentForBrackets(string bracketsString)
         {
@@ -156,31 +207,5 @@ namespace CanonicalEquation.Helpers
             return stringLength > 2 ? bracketsString.Substring(1, stringLength - 2) : String.Empty;
         }
 
-        public static int FindClosingBracket(string stringValue, int start)
-        {
-            var bracketsStack = new Stack<int>();
-            int i = start;
-
-            do
-            {
-                if (stringValue[i] == '(')
-                {
-                    bracketsStack.Push(i);
-                }
-                else if (stringValue[i] == ')')
-                {
-                    bracketsStack.Pop();
-                }
-
-                i++;
-            } while (bracketsStack.Count > 0 && i < stringValue.Length);
-
-            if (bracketsStack.Count == 0)
-            {
-                return i - 1;
-            }
-
-            throw new FormatException($"For bracket '(' missing its counterpart ')'.");
-        }
     }
 }

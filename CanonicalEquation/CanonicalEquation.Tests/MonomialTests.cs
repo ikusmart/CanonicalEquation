@@ -27,13 +27,11 @@ namespace CanonicalEquation.Tests
 
         public void NegateMonomial_ReturnNegatedObject(string initialMonomialString, string expectedMonomial)
         {
-            Monomial parseResult = null;
             Should.NotThrow(() =>
             {
-                parseResult = MonomialParse.Parse(initialMonomialString).Negate();
+                MonomialParser.Parse(initialMonomialString);
             });
 
-            parseResult.ToString().ShouldBe(expectedMonomial);
         }
 
 
