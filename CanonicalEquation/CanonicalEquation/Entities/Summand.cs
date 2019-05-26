@@ -10,11 +10,15 @@ namespace CanonicalEquation.Entities
         public float Multiplier { get; }
         public IEnumerable<Variable> Variables { get; }
 
-        public string UniqueId => Variables.OrderBy(x => x.Power).ThenBy(x => x.Name)
-            .Select(x => x.ToString()).CollectionToStringWithSeparator(String.Empty);
+        public string UniqueId => Variables
+                                    .OrderBy(x => x.Power)
+                                    .ThenBy(x => x.Name)
+                                    .Select(x => x.ToString())
+                                    .CollectionToStringWithSeparator(String.Empty);
 
         public int MaxPower => Variables.Any() ? Variables.Max(x => x.Power) : 0;
-        
+        public int TotalPower => Variables.Any() ? Variables.Sum(x => x.Power) : 0;
+
         public Summand(float multiplier = 1) : this(null, multiplier)
         {
         }
@@ -29,7 +33,8 @@ namespace CanonicalEquation.Entities
         {
             var normalizedVariables = Variables
                 .GroupBy(x => x.Name)
-                .Select(x => new Variable(x.Key, x.Sum(v => v.Power)));
+                .Select(x => new Variable(x.Key, x.Sum(v => v.Power)))
+                .Where(x => x.Power > 0);
 
             return new Summand(normalizedVariables, Multiplier);
         }

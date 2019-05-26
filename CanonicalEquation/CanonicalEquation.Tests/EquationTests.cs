@@ -1,5 +1,7 @@
 using System;
 using CanonicalEquation.Exceptions;
+using CanonicalEquation.Interfaces;
+using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
 
@@ -12,7 +14,7 @@ namespace CanonicalEquation.Tests
         {
             Should.Throw<ArgumentNullException>(() =>
             {
-                var parseResult = Equation.Parse(null);
+                var parseResult = EquationParser.Parse(null);
             });
         }
 
@@ -21,7 +23,7 @@ namespace CanonicalEquation.Tests
         {
             Should.Throw<ArgumentNullException>(() =>
             {
-                var parseResult = Equation.Parse("");
+                var parseResult = EquationParser.Parse("");
             });
         }
         
@@ -30,7 +32,7 @@ namespace CanonicalEquation.Tests
         {
             Should.Throw<ArgumentNullException>(() =>
             {
-                var parseResult = Equation.Parse("   ");
+                var parseResult = EquationParser.Parse("   ");
             });
         }
 
@@ -44,19 +46,19 @@ namespace CanonicalEquation.Tests
         {
             Should.Throw<NotValidEquationArgumentException>(() =>
             {
-                var parseResult = Equation.Parse(equationString);
+                var parseResult = EquationParser.Parse(equationString);
             });
         }
 
         [Theory]
         [InlineData("x^2=x", "x^2", "x")]
         [InlineData("x=y", "x", "y")]
-        [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+83+xyz", "6-ds")]
-        [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+ax+bx-x", "a^2b^2-ab-abcd+cd-1")]
+        [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+xyz+83", "-ds+6")]
+        [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+ax+bx-x", "a^2b^2-abcd-ab+cd-1")]
         public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
             string equationString, string leftPolynomial, string rightPolynomial)
         {
-            var equation = Equation.Parse(equationString);
+            var equation = EquationParser.Parse(equationString);
 
             equation.Left.ToString().ShouldBe(leftPolynomial);
             equation.Right.ToString().ShouldBe(rightPolynomial);

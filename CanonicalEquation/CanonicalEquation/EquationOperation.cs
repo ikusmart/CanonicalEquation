@@ -10,7 +10,7 @@ namespace CanonicalEquation
         public static IEnumerable<Summand> Sum(this IEnumerable<Summand> summands)
         {
             var summandArray = summands.ToArray();
-            if (summandArray.Length == 0) return null;
+            if (summandArray.Length == 0) return new Summand[] { };
             if (summandArray.Length == 1) return summandArray;
 
             var summandNews = summandArray.Select(x => x.Normalize());

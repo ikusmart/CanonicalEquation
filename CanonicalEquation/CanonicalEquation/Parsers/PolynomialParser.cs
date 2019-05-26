@@ -5,10 +5,11 @@ using CanonicalEquation.Entities;
 using CanonicalEquation.Exceptions;
 using CanonicalEquation.Extensions;
 using CanonicalEquation.Helpers;
+using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {
-    public static class PolynomialParser
+    public static class PolynomialParser 
     {
         private static readonly HashSet<char> AllowedSymbols = new HashSet<char>(Symbols.AllowedSymbolsForEquation);
 
@@ -26,9 +27,9 @@ namespace CanonicalEquation.Parsers
 
             var monomialsParts = ParseHelper.GetMonomialssForPolynomial(polynomialString);
 
-            var monomialsItems = monomialsParts.SelectMany(MonomialParser.Parse).Sum();
+            var monomialsItems = monomialsParts.Select(MonomialParser.Parse).SelectMany(x => x.Summands).Sum();
 
-            return new Polynomial(monomialsItems);
+            return new Polynomial(monomialsItems).Normalize();
         }
 
         private static bool IsContainsOnlyAllowedSymbols(string initialString)

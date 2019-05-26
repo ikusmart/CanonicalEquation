@@ -2,10 +2,11 @@
 using System.Linq;
 using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
+using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {
-    public static class VariableParser
+    public class VariableParser 
     {
         public static Variable Parse(string variableString)
         {

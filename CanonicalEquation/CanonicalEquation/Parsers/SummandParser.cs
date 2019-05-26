@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
+using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {
-    public static class SummandParser
+    public class SummandParser 
     {
         private const string MultiplierRegexGroupName = "multiplier";
         private const string VariblesRegexGroupName = "varibles";
@@ -14,6 +15,7 @@ namespace CanonicalEquation.Parsers
 
         private static readonly string SummandRegexPattern = $@"^(?<{MultiplierRegexGroupName}>[+-]?\d*\.?\d*)(?<{VariblesRegexGroupName}>[a-zA-Z](?<{PowerRegexGroupName}>\^\d+)*)*$";
         private static readonly Regex SummandRegex = new Regex(SummandRegexPattern, RegexOptions.Singleline | RegexOptions.Compiled);
+
 
         public static Summand Parse(string summandString)
         {
