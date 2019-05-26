@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
-using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {

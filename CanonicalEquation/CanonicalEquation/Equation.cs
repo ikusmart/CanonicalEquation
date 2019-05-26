@@ -16,7 +16,7 @@ namespace CanonicalEquation
 
         public Equation ToCanonicalEquation()
         {
-            var canonicalLeft = Left-Right;
+            var canonicalLeft = (Left-Right).Normalize();
             var zeroRight = new Polynomial();
             return new Equation(canonicalLeft, zeroRight);
         }

@@ -2,7 +2,6 @@
 using System.Linq;
 using CanonicalEquation.Entities;
 using CanonicalEquation.Extensions;
-using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using CanonicalEquation.Exceptions;
 using CanonicalEquation.Extensions;
-using CanonicalEquation.Interfaces;
 
 namespace CanonicalEquation.Parsers
 {

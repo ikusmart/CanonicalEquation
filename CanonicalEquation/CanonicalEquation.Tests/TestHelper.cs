@@ -1,6 +1,5 @@
 using System.Linq;
 using CanonicalEquation.Entities;
-using CanonicalEquation.Interfaces;
 using CanonicalEquation.Parsers;
 
 namespace CanonicalEquation.Tests

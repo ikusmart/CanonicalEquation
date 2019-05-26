@@ -1,6 +1,5 @@
 using System;
 using CanonicalEquation.Exceptions;
-using CanonicalEquation.Interfaces;
 using CanonicalEquation.Parsers;
 using Shouldly;
 using Xunit;
@@ -55,13 +54,27 @@ namespace CanonicalEquation.Tests
         [InlineData("x=y", "x", "y")]
         [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+xyz+83", "-ds+6")]
         [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+ax+bx-x", "a^2b^2-abcd-ab+cd-1")]
-        public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
+        public void ParseMethod_ValidInitialString_ReturnLeftRightPolynomials(
             string equationString, string leftPolynomial, string rightPolynomial)
         {
             var equation = EquationParser.Parse(equationString);
 
             equation.Left.ToString().ShouldBe(leftPolynomial);
             equation.Right.ToString().ShouldBe(rightPolynomial);
+        }
+
+        [Theory]
+        [InlineData("x^2=x", "x^2-x")]
+        [InlineData("x=y", "x-y")]
+        [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+xyz+ds+77")]
+        [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "-a^2b^2+x^2+abcd+ab+ax+bx-cd-x+1")]
+        public void ToCanonical_ValidInitialString_ReturnCanonicalEquation(
+            string equationString, string expectedEquation)
+        {
+            var equation = EquationParser.Parse(equationString).ToCanonicalEquation();
+
+            equation.Left.ToString().ShouldBe(expectedEquation);
+            equation.Right.ToString().ShouldBe("0");
         }
     }
 }
