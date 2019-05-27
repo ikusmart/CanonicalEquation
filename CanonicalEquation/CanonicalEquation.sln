@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanonicalEquation", "CanonicalEquation\CanonicalEquation.csproj", "{2E294F79-FE86-450C-82AD-218C9A158E89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanonicalEquation.Lib", "CanonicalEquation\CanonicalEquation.Lib.csproj", "{2E294F79-FE86-450C-82AD-218C9A158E89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanonicalEquation.App", "CanonicalEquation.App\CanonicalEquation.App.csproj", "{14B67351-7123-4A3E-A9A5-17351822797B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanonicalEquation.App", "CanonicalEquation.App\CanonicalEquation.App.csproj", "{14B67351-7123-4A3E-A9A5-17351822797B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanonicalEquation.Tests", "CanonicalEquation.Tests\CanonicalEquation.Tests.csproj", "{79CC72DD-6308-424F-BB02-08147736A584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanonicalEquation.Tests", "CanonicalEquation.Tests\CanonicalEquation.Tests.csproj", "{79CC72DD-6308-424F-BB02-08147736A584}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

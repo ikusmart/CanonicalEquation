@@ -1,8 +1,8 @@
 using System.Linq;
-using CanonicalEquation.Entities;
-using CanonicalEquation.Parsers;
+using CanonicalEquation.Lib.Entities;
+using CanonicalEquation.Lib.Parsers;
 
-namespace CanonicalEquation.Tests
+namespace CanonicalEquation.Lib.Tests
 {
     public static class TestHelper
     {

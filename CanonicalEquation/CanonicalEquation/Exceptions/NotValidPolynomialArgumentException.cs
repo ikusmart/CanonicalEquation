@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CanonicalEquation.Exceptions
+namespace CanonicalEquation.Lib.Exceptions
 {
     public class NotValidPolynomialArgumentException : ArgumentException
     {

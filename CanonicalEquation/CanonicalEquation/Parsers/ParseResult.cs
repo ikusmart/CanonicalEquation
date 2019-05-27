@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace CanonicalEquation.Parsers
+namespace CanonicalEquation.Lib.Parsers
 {
     public class ParseResult
     {

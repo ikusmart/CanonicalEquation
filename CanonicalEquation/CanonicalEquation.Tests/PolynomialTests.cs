@@ -1,8 +1,8 @@
-using CanonicalEquation.Parsers;
+using CanonicalEquation.Lib.Parsers;
 using Shouldly;
 using Xunit;
 
-namespace CanonicalEquation.Tests
+namespace CanonicalEquation.Lib.Tests
 {
     public class PolynomialTests
     {

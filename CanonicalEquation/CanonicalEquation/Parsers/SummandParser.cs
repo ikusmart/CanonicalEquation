@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using CanonicalEquation.Entities;
-using CanonicalEquation.Extensions;
+using CanonicalEquation.Lib.Extensions;
+using CanonicalEquation.Lib.Entities;
 
-namespace CanonicalEquation.Parsers
+namespace CanonicalEquation.Lib.Parsers
 {
     public class SummandParser 
     {

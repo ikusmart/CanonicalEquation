@@ -1,7 +1,7 @@
 ﻿using System;
-using CanonicalEquation.Entities;
+using CanonicalEquation.Lib.Entities;
 
-namespace CanonicalEquation
+namespace CanonicalEquation.Lib
 {
     public class Equation
     {

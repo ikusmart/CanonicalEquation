@@ -1,10 +1,10 @@
 using System;
-using CanonicalEquation.Exceptions;
-using CanonicalEquation.Parsers;
+using CanonicalEquation.Lib.Exceptions;
+using CanonicalEquation.Lib.Parsers;
 using Shouldly;
 using Xunit;
 
-namespace CanonicalEquation.Tests.ParserTests
+namespace CanonicalEquation.Lib.Tests.ParserTests
 {
     public class PolynomialParserTests
     {

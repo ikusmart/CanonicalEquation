@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CanonicalEquation.Entities
+namespace CanonicalEquation.Lib.Entities
 {
     public class Monomial
     {

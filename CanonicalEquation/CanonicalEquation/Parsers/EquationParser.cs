@@ -1,8 +1,8 @@
 ﻿using System;
-using CanonicalEquation.Exceptions;
-using CanonicalEquation.Extensions;
+using CanonicalEquation.Lib.Extensions;
+using CanonicalEquation.Lib.Exceptions;
 
-namespace CanonicalEquation.Parsers
+namespace CanonicalEquation.Lib.Parsers
 {
     public static class EquationParser 
     {

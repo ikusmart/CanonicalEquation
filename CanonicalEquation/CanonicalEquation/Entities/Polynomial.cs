@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CanonicalEquation.Extensions;
+using CanonicalEquation.Lib.Extensions;
 
-namespace CanonicalEquation.Entities
+namespace CanonicalEquation.Lib.Entities
 {
     public class Polynomial
     {

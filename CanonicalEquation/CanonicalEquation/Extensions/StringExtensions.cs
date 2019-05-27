@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
-namespace CanonicalEquation.Extensions
+namespace CanonicalEquation.Lib.Extensions
 {
     public static class StringExtensions
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CanonicalEquation.Exceptions;
-using CanonicalEquation.Extensions;
+using CanonicalEquation.Lib.Extensions;
+using CanonicalEquation.Lib.Exceptions;
 
-namespace CanonicalEquation.Helpers
+namespace CanonicalEquation.Lib.Helpers
 {
     public static class ParseHelper
     {

@@ -1,6 +1,6 @@
-﻿using CanonicalEquation.Exceptions;
+﻿using CanonicalEquation.Lib.Exceptions;
 
-namespace CanonicalEquation.Entities
+namespace CanonicalEquation.Lib.Entities
 {
     /// <summary>
     /// Variable in equation

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CanonicalEquation.Entities;
-using CanonicalEquation.Parsers;
+using CanonicalEquation.Lib.Entities;
+using CanonicalEquation.Lib.Parsers;
 using Shouldly;
 using Xunit;
 
-namespace CanonicalEquation.Tests.ParserTests
+namespace CanonicalEquation.Lib.Tests.ParserTests
 {
     public class SummandParserTests
     {

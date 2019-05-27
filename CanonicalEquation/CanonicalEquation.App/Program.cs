@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CanonicalEquation.App
+namespace CanonicalEquation.Lib.App
 {
     class Program
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CanonicalEquation.Exceptions;
-using CanonicalEquation.Helpers;
+using CanonicalEquation.Lib.Exceptions;
+using CanonicalEquation.Lib.Helpers;
 using Shouldly;
 using Xunit;
 
-namespace CanonicalEquation.Tests
+namespace CanonicalEquation.Lib.Tests
 {
     public class ParseHelperTests
     {

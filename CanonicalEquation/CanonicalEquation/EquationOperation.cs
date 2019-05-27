@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CanonicalEquation.Entities;
+using CanonicalEquation.Lib.Entities;
 
-namespace CanonicalEquation
+namespace CanonicalEquation.Lib
 {
     public static class EquationOperation
     {

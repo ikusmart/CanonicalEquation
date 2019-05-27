@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CanonicalEquation\CanonicalEquation.csproj" />
+    <ProjectReference Include="..\CanonicalEquation\CanonicalEquation.Lib.csproj" />
   </ItemGroup>
 
 </Project>

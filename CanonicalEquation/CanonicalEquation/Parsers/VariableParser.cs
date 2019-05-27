@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using CanonicalEquation.Entities;
-using CanonicalEquation.Extensions;
+using CanonicalEquation.Lib.Extensions;
+using CanonicalEquation.Lib.Entities;
 
-namespace CanonicalEquation.Parsers
+namespace CanonicalEquation.Lib.Parsers
 {
     public class VariableParser 
     {

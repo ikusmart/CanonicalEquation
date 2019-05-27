@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CanonicalEquation.Entities;
-using CanonicalEquation.Extensions;
-using CanonicalEquation.Helpers;
+using CanonicalEquation.Lib.Extensions;
+using CanonicalEquation.Lib.Entities;
+using CanonicalEquation.Lib.Helpers;
 
-namespace CanonicalEquation.Parsers
+namespace CanonicalEquation.Lib.Parsers
 {
     public static class MonomialParser 
     {
