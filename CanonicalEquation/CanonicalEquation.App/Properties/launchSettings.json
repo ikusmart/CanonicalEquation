@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CanonicalEquation.App": {
+      "commandName": "Project",
+      "commandLineArgs": "-m file -f nonCanonicalEquations.in"
+    }
+  }
+}
