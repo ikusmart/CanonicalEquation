@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CanonicalEquation.Lib.Extensions;
 using CanonicalEquation.Lib.Exceptions;
@@ -18,7 +19,6 @@ namespace CanonicalEquation.Lib.Helpers
             // '(' - initial search of closing brackets '('
             // '.*^', letters or numbers - part of monomial
 
-            string summandItemString;
             for (int i = 0; i < polynomialString.Length; i++)
             {
                 var currentSymbol = polynomialString[i];
@@ -36,18 +36,8 @@ namespace CanonicalEquation.Lib.Helpers
 
                 else if (currentSymbol == Symbols.Plus || currentSymbol == Symbols.Minus )
                 {
-                    if (summandStringBuilder.Length > 0)
-                    {
-                        summandItemString = summandStringBuilder.ToString();
-                        if (!summandItemString.IsNullOrWhiteSpace())
-                        {
-                            if (!summandItemString.Equals(Symbols.Minus.ToString()) && !summandItemString.Equals(Symbols.Plus.ToString()))
-                            {
-                                result.Add(summandItemString); 
-                            }
-                        }
-                        summandStringBuilder.Clear();
-                    }
+                    result.Add(summandStringBuilder.ToString()); 
+                    summandStringBuilder.Clear();
                     summandStringBuilder.Append(currentSymbol);
                 }
                 else
@@ -55,21 +45,13 @@ namespace CanonicalEquation.Lib.Helpers
                     summandStringBuilder.Append(currentSymbol);
                 }
             }
+            result.Add(summandStringBuilder.ToString());
 
-            if (summandStringBuilder.Length > 0)
-            {
-                summandItemString = summandStringBuilder.ToString();
-                if (!summandItemString.IsNullOrWhiteSpace())
-                {
-                    if (!summandItemString.Equals(Symbols.Minus.ToString()) && !summandItemString.Equals(Symbols.Plus.ToString()))
-                    {
-                        result.Add(summandItemString);
-                    }
-                }
-                summandStringBuilder.Clear();
-            }
-
-            return result;
+            return result
+                .Where(x => 
+                    !x.IsNullOrWhiteSpace() && 
+                    !x.Equals(Symbols.Minus.ToString()) && 
+                    !x.Equals(Symbols.Plus.ToString()));
         }
 
         /// <summary>
@@ -102,7 +84,8 @@ namespace CanonicalEquation.Lib.Helpers
                     }
 
                     var j = FindClosingBracket(transformedMonomial, i);
-                    if (j != (i+1)  )
+                    //without brackets
+                    if (j != i+1)
                     {
                         for (int k = i + 1; k < j; k++)
                         {

@@ -22,14 +22,22 @@ namespace CanonicalEquation.Lib.Parsers
 
             var summandItems = ParseHelper.GetSummandsForMonomial(monomialString);
 
-            var summand = summandItems.summandItems.Select(SummandParser.Parse).Multiply();
+            //default value:
+            //for brackets - 1 '(x-1) -> 1(x-1)'
+            //otherwise - 0 'x^0 + a -> 1+a' 
+            var summand = summandItems.summandItems.Select(SummandParser.Parse).Multiply() 
+                          ?? new Summand(summandItems.bracketsParts.Count > 0 ? 1 : 0); 
+            
             
             IEnumerable<Summand> resultSummands = summand != null ? new []{ summand } : new Summand[]{ };
-            resultSummands = summandItems.bracketsParts.Aggregate(
-                    resultSummands, 
-                    (current, bracketsPart) 
-                        => EquationOperation.Multiply(current, PolynomialParser.Parse(bracketsPart).Normalize().Summands))
-                .Sum();
+
+            IEnumerable<Summand> result = resultSummands;
+            foreach (var part in summandItems.bracketsParts)
+            {
+                var rightItems = PolynomialParser.Parse(part).Normalize().Summands.Sum();
+                result = EquationOperation.Multiply(result, rightItems);
+            }
+            resultSummands = result.Sum();
 
             return new Monomial(resultSummands ?? new Summand[]{});
         }

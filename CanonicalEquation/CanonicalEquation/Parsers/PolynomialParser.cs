@@ -26,9 +26,9 @@ namespace CanonicalEquation.Lib.Parsers
 
             var monomialsParts = ParseHelper.GetMonomialssForPolynomial(polynomialString);
 
-            var monomialsItems = monomialsParts.Select(MonomialParser.Parse).SelectMany(x => x.Summands).Sum();
+            var monomialsItems = monomialsParts.Select(MonomialParser.Parse).Select(x => x.Summands).ToArray();
 
-            return new Polynomial(monomialsItems).Normalize();
+            return new Polynomial(monomialsItems.SelectMany(x => x)).Normalize();
         }
 
         private static bool IsContainsOnlyAllowedSymbols(string initialString)

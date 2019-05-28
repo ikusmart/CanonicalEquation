@@ -16,6 +16,10 @@ namespace CanonicalEquation.Lib.Tests
         [InlineData("-(-(-(1)))", "-1")]
         [InlineData("(0)(x-1)(x-1)-1", "-1")]
         [InlineData("-8.7a- 5xy(4.1x-3z(x-3)(x-3)  (x   - 3) ) + 3.2x^0- a^1", "15x^4yz-135x^3yz+405x^2yz-20.5x^2y-405xyz-9.7a+3.2")]
+        [InlineData("(x-x(x-x(x-x(x-x(x-x)))))", "-x^4+x^3-x^2+x")]
+        [InlineData("(x-x(x-x))", "x")]
+        [InlineData("(x-x(x-x(x-x)))", "-x^2+x")]
+        [InlineData("x-x(x-x)", "x")]
         public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
             string initialPolymial, string expectedPolymial)
         {

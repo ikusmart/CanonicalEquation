@@ -16,6 +16,8 @@ namespace CanonicalEquation.Lib.Entities
                                     .Select(x => x.ToString())
                                     .CollectionToStringWithSeparator(String.Empty);
 
+        public string VariableNames => Variables.OrderBy(x => x.Name).CollectionToStringWithSeparator(String.Empty);
+
         public int MaxPower => Variables.Any() ? Variables.Max(x => x.Power) : 0;
         public int TotalPower => Variables.Any() ? Variables.Sum(x => x.Power) : 0;
 
@@ -62,14 +64,14 @@ namespace CanonicalEquation.Lib.Entities
 
         public static Summand operator *(Summand left, Summand right)
         {
-            if (left == null && right == null) return null;
-            if (left != null && right == null) return left;
-            if (left == null && right != null) return right;
+            if (left == null || right == null) return null;
 
-            var unionVariables = new List<Variable>(left.Variables).Union(right.Variables);
-            var multipliedPower = left.Multiplier * right.Multiplier;
+            var resultMultiplier = left.Multiplier * right.Multiplier;
+            if(Math.Abs(resultMultiplier) < float.Epsilon) return new Summand(0);
 
-            return new Summand(unionVariables, multipliedPower).Normalize();
+            var concatVariables = new List<Variable>(left.Variables).Concat(right.Variables);
+
+            return new Summand(concatVariables, resultMultiplier).Normalize();
         }
 
     }

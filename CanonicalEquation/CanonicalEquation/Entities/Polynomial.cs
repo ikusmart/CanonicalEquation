@@ -22,10 +22,7 @@ namespace CanonicalEquation.Lib.Entities
                         .Sum()
                         .OrderByDescending(x => x.MaxPower)
                         .ThenByDescending(x => x.TotalPower)
-                        .ThenBy(x => x.UniqueId)
-
-                        
-                ;
+                        .ThenBy(x => x.VariableNames);
             return new Polynomial(normalizedSummands);
         }
 

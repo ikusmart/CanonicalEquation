@@ -66,6 +66,9 @@ namespace CanonicalEquation.Lib.Tests
         [Theory]
         [InlineData("x^2=x", "x^2-x")]
         [InlineData("x=y", "x-y")]
+        [InlineData("x-1=x-1", "0")]
+        [InlineData("x-x(x-x)=y-y(y-y)", "x-y")]
+        [InlineData("4a^2b - 2=2b^2a(a-1)", "-2a^2b^2+4a^2b+2b^2a-2")]
         [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+xyz+ds+77")]
         [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "-a^2b^2+x^2+abcd+ab+ax+bx-cd-x+1")]
         public void ToCanonical_ValidInitialString_ReturnCanonicalEquation(

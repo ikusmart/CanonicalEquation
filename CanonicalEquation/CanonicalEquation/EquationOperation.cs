@@ -9,7 +9,7 @@ namespace CanonicalEquation.Lib
     {
         public static IEnumerable<Summand> Sum(this IEnumerable<Summand> summands)
         {
-            var summandArray = summands.ToArray();
+            var summandArray = summands?.ToArray() ?? new Summand[] { };
             if (summandArray.Length == 0) return new Summand[] { };
             if (summandArray.Length == 1) return summandArray;
 
@@ -24,7 +24,7 @@ namespace CanonicalEquation.Lib
 
         public static Summand Multiply(this IEnumerable<Summand> summands)
         {
-            var summandArray = summands.ToArray();
+            var summandArray = summands?.ToArray() ?? new Summand[] { };
             if (summandArray.Length == 0) return null;
             if (summandArray.Length == 1) return summandArray[0];
 
@@ -36,30 +36,15 @@ namespace CanonicalEquation.Lib
 
             return result;
         }
-
-        public static IEnumerable<Summand> Multiply(Summand leftItem, IEnumerable<Summand> rightItems)
-        {
-            var rightArray =  rightItems?.ToArray() ?? new Summand[] {};
-
-            if (leftItem == null && rightArray.Length == 0) return null;
-            if (leftItem == null && rightArray.Length != 0) return rightArray;
-            if (leftItem != null && rightArray.Length == 0) return new[]{ leftItem };
-
-            return rightArray.Select(x => x * leftItem);
-        }
-
+        
         public static IEnumerable<Summand> Multiply(IEnumerable<Summand> leftItems, IEnumerable<Summand> rightItems)
         {
             var leftArray = leftItems?.ToArray() ?? new Summand[] { };
             var rightArray = rightItems?.ToArray() ?? new Summand[] { };
 
+            if (leftArray.Length == 0 || rightArray.Length == 0) return new Summand[] {};
 
-            if (leftArray.Length == 0 && rightArray.Length == 0) return null;
-            if (leftArray.Length == 0 && rightArray.Length != 0) return rightArray;
-            if (leftArray.Length != 0 && rightArray.Length == 0) return leftArray;
-
-            var result = leftArray.SelectMany(x => rightArray.Select(y => x * y));
-
+            var result = leftArray.SelectMany(x => rightArray.Select(y => x * y)).Where(x => x != null);
             return result;
         }
     }
