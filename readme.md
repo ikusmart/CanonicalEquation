@@ -27,7 +27,8 @@ For example:
   3. `"x - (x^2 - xy - 2) = 0"` => `"-x^2 + xy + x + 2=0"`
   4. `"x - (x^0 - (0 - x + y - y^0)) = 0"` => `"y-2=0"`
   5. `"x^3 - y(x + (x-1)(y+3)) = 0"` => `"x^3-y^2x+y^2-4xy+3y=0"`
-  etc.
+
+etc.
 
 Should be transformed into:
 
