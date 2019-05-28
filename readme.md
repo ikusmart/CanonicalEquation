@@ -32,13 +32,10 @@ etc.
 
 Should be transformed into:
 
-x^2 - y^2 + 4.5xy = 0
-
-It should be a C# console application with support of two modes of operation: `file` and `interactive`. 
-    - In interactive mode application prompts user to enter equation and displays
-result on enter. This is repeated until user presses Ctrl+C. 
-    - In the file mode application
-processes a file specified as parameter and writes the output into separate file with `.out`
-extension. 
+    x^2 - y^2 + 4.5xy = 0
+    
+It should be a C# console application with support of two modes of operation: `file` and `interactive` 
+  - `interactive mode` - application prompts user to enter equation and displays result on enter. This is repeated until user presses `Ctrl+C`;
+  - `file mode` - application processes a file specified as parameter and writes the output into separate file with `.out` extension.;
 
 Input file contains lines with equations, each equation on separate line.
