@@ -65,39 +65,43 @@ namespace CanonicalEquation.App
 
         private static int RunInteractiveMode()
         {
+            var isCancel = false;
+
 
             Console.CancelKeyPress += (object sender, ConsoleCancelEventArgs e) =>
             {
                 var isCtrlC = e.SpecialKey == ConsoleSpecialKey.ControlC;
-                // Prevent CTRL-C from terminating
                 if (isCtrlC)
                 {
                     e.Cancel = true;
+                    isCancel = true;
                 }
-                // e.Cancel defaults to false so CTRL-BREAK will still cause termination
             };
 
             Console.WriteLine("Interactive mode: enter equations and displays result on enter. For exit press Ctrl+C");
             Console.WriteLine();
 
-            while (true)
+            while (!isCancel)
             {
                 Console.WriteLine();
                 Console.Write("Enter equation: ");
                 string line = Console.ReadLine();
 
-                var parseResult = EquationParser.TryParse(line, out var equation);
-                if (parseResult.IsSucceed)
+                if (!isCancel)
                 {
-                    Console.WriteLine("Canonical equation: " + equation.ToCanonicalEquation());
-                }
-                else
-                {
-                    Console.WriteLine($"Equation parse failed. See the errors: {parseResult.Errors.CollectionToStringWithSeparator(Environment.NewLine)}");
+                    var parseResult = EquationParser.TryParse(line, out var equation);
+                    if (parseResult.IsSucceed)
+                    {
+                        Console.WriteLine("Canonical equation: " + equation.ToCanonicalEquation());
+                    }
+                    else
+                    {
+                        Console.WriteLine(
+                            $"Equation parse failed. See the errors: {parseResult.Errors.CollectionToStringWithSeparator(Environment.NewLine)}");
+                    }
                 }
             }
-
-
+            return 0;
         }
     }
 }

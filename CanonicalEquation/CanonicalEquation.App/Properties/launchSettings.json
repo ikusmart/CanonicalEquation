@@ -2,7 +2,9 @@
   "profiles": {
     "CanonicalEquation.App": {
       "commandName": "Project",
-      "commandLineArgs": "-m file -f nonCanonicalEquations.in"
+      "commandLineArgs": "-m interactive",
+      //"commandLineArgs": "-m file -f nonCanonicalEquations.in"
+
     }
   }
 }
