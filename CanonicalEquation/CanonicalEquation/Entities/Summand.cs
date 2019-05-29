@@ -49,8 +49,8 @@ namespace CanonicalEquation.Lib.Entities
             var absMultiplier = Math.Abs(Multiplier);
 
             var absMultiplierString = Math.Abs(absMultiplier - 1) < float.Epsilon
-                ? Variables.Any() ? String.Empty : $"{absMultiplier}"
-                : $"{absMultiplier}";
+                ? Variables.Any() ? String.Empty : $"{absMultiplier.ToString("G", System.Globalization.CultureInfo.InvariantCulture)}"
+                : $"{absMultiplier.ToString("G", System.Globalization.CultureInfo.InvariantCulture)}";
 
             var variablesString = Variables
                 .OrderByDescending(x => x.Power)

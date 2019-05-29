@@ -64,7 +64,12 @@ namespace CanonicalEquation.Lib.Tests.ParserTests
                 new object[] { "x^2y^2", 1, 2, new List<Variable>{ new Variable('x',2), new Variable('y', 2) }},
                 new object[] { "+7.4z^4wy^6", 7.4, 3, new List<Variable>{ new Variable('z',4), new Variable('w'), new Variable('y', 6) }},
                 new object[] { "-a^5b^2c", -1, 3, new List<Variable>{ new Variable('a',5), new Variable('b', 2), new Variable('c') }},
-                new object[] { "-0.001c", -0.001, 1, new List<Variable>{ new Variable('c') }}
+                new object[] { "-0.001c", -0.001, 1, new List<Variable>{ new Variable('c') }},
+                new object[] { "1.2c", 1.2f, 1, new List<Variable>{ new Variable('c') }},
+                new object[] { "-1,53c", -1.53f, 1, new List<Variable>{ new Variable('c') }},
+                new object[] { "-1,222c", -1.222f, 1, new List<Variable>{ new Variable('c') }},
+                new object[] { "-0.0c", 0, 0, new List<Variable>() },
+                new object[] { "-0,0000000001c", -0.0000000001f, 1, new List<Variable>{ new Variable('c') }},
             };
 
         [Theory, MemberData(nameof(ValidVariableTestCases))]

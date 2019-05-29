@@ -51,6 +51,8 @@ namespace CanonicalEquation.Lib.Tests
 
         [Theory]
         [InlineData("x^2=x", "x^2", "x")]
+        [InlineData("1.2x(1.2x)=x", "1.44x^2", "x")]
+        [InlineData("1,2x(1.2x)=x", "1.44x^2", "x")]
         [InlineData("x=y", "x", "y")]
         [InlineData("x^2+ 83 + zxy = 4 - ds+2", "x^2+xyz+83", "-ds+6")]
         [InlineData("x^2+ x(a+b)- x^1 = (ab-cd)(ab-1) - 1", "x^2+ax+bx-x", "a^2b^2-abcd-ab+cd-1")]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using CanonicalEquation.Lib.Extensions;
 using CanonicalEquation.Lib.Entities;
@@ -12,7 +13,7 @@ namespace CanonicalEquation.Lib.Parsers
         private const string VariblesRegexGroupName = "varibles";
         private const string PowerRegexGroupName = "power";
 
-        private static readonly string SummandRegexPattern = $@"^(?<{MultiplierRegexGroupName}>[+-]?\d*\.?\d*)(?<{VariblesRegexGroupName}>[a-zA-Z](?<{PowerRegexGroupName}>\^\d+)*)*$";
+        private static readonly string SummandRegexPattern = $@"^(?<{MultiplierRegexGroupName}>[+-]?\d*[\.\,]?\d*)(?<{VariblesRegexGroupName}>[a-zA-Z](?<{PowerRegexGroupName}>\^\d+)*)*$";
         private static readonly Regex SummandRegex = new Regex(SummandRegexPattern, RegexOptions.Singleline | RegexOptions.Compiled);
 
 
@@ -37,7 +38,7 @@ namespace CanonicalEquation.Lib.Parsers
                 multiplierString.Equals(Symbols.Plus.ToString()))
                 multiplierString += "1";
 
-            var multiplier = float.Parse(multiplierString);
+            var multiplier = float.Parse(multiplierString.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat);
 
             if (Math.Abs(multiplier) < float.Epsilon) return new Summand(0);
 

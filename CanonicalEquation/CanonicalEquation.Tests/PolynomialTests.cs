@@ -8,6 +8,7 @@ namespace CanonicalEquation.Lib.Tests
     {
         [Theory]
         [InlineData("x^2+ 83 + zxy", "x^2+xyz+83")]
+        [InlineData("1,3x^2+ 83 + 2.2zxy", "1.3x^2+2.2xyz+83")]
         [InlineData("(ab-cd)(ab-1) - 1", "a^2b^2-abcd-ab+cd-1")]
         [InlineData("x + (x+1)", "2x+1")]
         [InlineData("(((1-2x^2y)))xy", "-2x^3y^2+xy")]
@@ -20,6 +21,9 @@ namespace CanonicalEquation.Lib.Tests
         [InlineData("(x-x(x-x))", "x")]
         [InlineData("(x-x(x-x(x-x)))", "-x^2+x")]
         [InlineData("x-x(x-x)", "x")]
+        [InlineData("x-1.2x(1,1x-x)", "-0.12x^2+x")]
+        [InlineData("-2.5x(3.5x-x)", "-6.25x^2")]
+        [InlineData("-1,1x(1,1x-x)", "-0.11x^2")]
         public void ParseMethod_ValidInitialString_NotValidEquationArgumentException(
             string initialPolymial, string expectedPolymial)
         {
