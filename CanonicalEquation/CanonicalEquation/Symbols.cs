@@ -9,9 +9,10 @@
         public const char OpenBracket = '(';
         public const char CloseBracket = ')';
         public const char Dot = '.';
+        public const char Comma = ',';
 
         public const char Space = ' ';
 
-        public static char[] AllowedSymbolsForEquation = new[] { Equality, Minus, Plus, Power, OpenBracket, CloseBracket, Dot, Space };
+        public static char[] AllowedSymbolsForEquation = new[] { Equality, Minus, Plus, Power, OpenBracket, CloseBracket, Dot, Space, Comma };
     }
 }
