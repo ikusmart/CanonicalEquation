@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using CanonicalEquation.Lib.Extensions;
 using CanonicalEquation.Lib.Entities;
@@ -37,7 +38,7 @@ namespace CanonicalEquation.Lib.Parsers
                 multiplierString.Equals(Symbols.Plus.ToString()))
                 multiplierString += "1";
 
-            var multiplier = float.Parse(multiplierString);
+            var multiplier = float.Parse(multiplierString, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat);
 
             if (Math.Abs(multiplier) < float.Epsilon) return new Summand(0);
 
